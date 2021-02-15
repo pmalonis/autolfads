@@ -11,10 +11,10 @@ from pbt_helper_fn import pbtHelper
 # data_path : Data directory in the bucket
 # run_path : Run directory in the bucket
 # name : Run name
-bucket_name = 'test-bucket-raghav'
+bucket_name = 'malonisautolfadsbucket'
 data_path = 'data'
-run_path = 'run_x'
-name = 'lfadsRunx'
+run_path = 'rockstar_run3_runs'
+name = 'rockstar_run3'
 
 # nprocess_gpu : Number of processes on each client machine/gpu
 nprocess_gpu = 3
@@ -81,10 +81,10 @@ svr.add_hp('keep_ratio', (0.3, 0.9), init_sample_mode=[0.5],
            explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
 
 # L2
-svr.add_hp('l2_gen_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
+svr.add_hp('l2_gen_scale', (1e-5, 1000), init_sample_mode='logrand', explorable=True)
 svr.add_hp('l2_ic_enc_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
 
-svr.add_hp('l2_con_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
+svr.add_hp('l2_con_scale', (1e-5, 1000), init_sample_mode='logrand', explorable=True)
 svr.add_hp('l2_ci_enc_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
 
 # KL
@@ -119,17 +119,17 @@ svr.add_hp('in_factors_dim', [0])
 svr.add_hp('ext_input_dim', [0])
 
 # Initial Condition Encoder
-svr.add_hp('ic_dim', [64])
+svr.add_hp('ic_dim', [200])
 svr.add_hp('ic_enc_dim', [64])
 svr.add_hp('ic_enc_seg_len', [0])  # for causal encoder, default=0 non-causal
 
 # Generator
-svr.add_hp('gen_dim', [64])
+svr.add_hp('gen_dim', [200])
 
 # Controller
-svr.add_hp('co_dim', [4])
+svr.add_hp('co_dim', [2])
 svr.add_hp('ci_enc_dim', [64])
-svr.add_hp('con_dim', [64])
+svr.add_hp('con_dim', [128])
 svr.add_hp('do_causal_controller', [False])
 svr.add_hp('controller_input_lag', [1])
 
@@ -150,7 +150,7 @@ svr.add_hp('beta1', [0.9])
 svr.add_hp('beta2', [0.999])
 
 # Data path params
-svr.add_hp('data_filename_stem', ['lfads']) # data file must start with this
+svr.add_hp('data_filename_stem', ['rockstar']) # data file must start with this
 
 # Frequently not changed
 svr.add_hp('data_dir', [data_dir])
