@@ -1,4 +1,4 @@
-import sys
+ import sys
 import shutil
 import subprocess
 import os
@@ -72,6 +72,10 @@ svr.add_hp('learning_rate_init', (0.00001, 0.0015), init_sample_mode=[0.001],
            explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
 
 ''' Regularization '''
+# Elastic-net alpha
+svr.add_hp('elastic_alpha', (0, 1), init_sample_mode='rand', explore_method='perturb', 
+        explore_param=0.5, limit_explore=True, explorable=True)
+
 # Standard Dropout
 svr.add_hp('keep_prob', (0.4, 1.0), init_sample_mode='rand',
            explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
@@ -90,8 +94,6 @@ svr.add_hp('l2_ci_enc_scale', (1e-5, 1.0), init_sample_mode='logrand', explorabl
 # KL
 svr.add_hp('kl_co_weight', (1e-6, 1e-3), init_sample_mode='logrand', explorable=True)
 svr.add_hp('kl_ic_weight', (1e-6, 1e-3), init_sample_mode='logrand', explorable=True)
-
-
 
 # Change `kl_start_step` and other related params to below:
 svr.add_hp('kl_start_epoch', [0])

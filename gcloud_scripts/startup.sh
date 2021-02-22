@@ -35,7 +35,7 @@ apt-get update
 apt-get install gcsfuse
 
 # Pull the docker image
-docker pull pmalonis/autolfads:000001
+docker pull pmalonis/autolfads:000002
 
 # Uncomment the /etc/fuse.conf line
 sed -i '8 s/^#//' /etc/fuse.conf

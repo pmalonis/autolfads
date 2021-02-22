@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker_tag="000001"
+docker_tag="000002"
 base_name="pbtclient"
 u='pmalonis'
 p='gQ^WznWU&-#9Luq'
