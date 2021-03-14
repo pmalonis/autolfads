@@ -13,8 +13,8 @@ from pbt_helper_fn import pbtHelper
 # name : Run name
 bucket_name = 'malonisautolfadsbucket'
 data_path = 'data'
-run_path = 'rockstar_run3_runs'
-name = 'rockstar_run3'
+run_path = 'laplace_no_search_runs'
+name = 'laplace_no_search'
 
 # nprocess_gpu : Number of processes on each client machine/gpu
 nprocess_gpu = 3
@@ -68,28 +68,26 @@ svr.add_computers(computers)
 ''' ------------------------ Specify model parameters ------------------------ '''
 ''' Searchable parameters (explorable=True) '''
 # Learning rate
-svr.add_hp('learning_rate_init', (0.00001, 0.0015), init_sample_mode=[0.001],
-           explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
+svr.add_hp('learning_rate_init', 0.01)
 
 ''' Regularization '''
 # Standard Dropout
-svr.add_hp('keep_prob', (0.4, 1.0), init_sample_mode='rand',
-           explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
+svr.add_hp('keep_prob', [0.98])
 
 # Coordinated Dropout
 svr.add_hp('keep_ratio', (0.3, 0.9), init_sample_mode=[0.5],
            explore_method='perturb', explore_param=0.3, limit_explore=True, explorable=True)
 
 # L2
-svr.add_hp('l2_gen_scale', (1e-5, 1000), init_sample_mode='logrand', explorable=True)
-svr.add_hp('l2_ic_enc_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
+svr.add_hp('l2_gen_scale', [500])
+svr.add_hp('l2_ic_enc_scale', [500], init_sample_mode='logrand', explorable=True)
 
-svr.add_hp('l2_con_scale', (1e-5, 1000), init_sample_mode='logrand', explorable=True)
-svr.add_hp('l2_ci_enc_scale', (1e-5, 1.0), init_sample_mode='logrand', explorable=True)
+svr.add_hp('l2_con_scale', [500])
+svr.add_hp('l2_ci_enc_scale', [500], init_sample_mode='logrand', explorable=True)
 
 # KL
-svr.add_hp('kl_co_weight', (1e-6, 1e-3), init_sample_mode='logrand', explorable=True)
-svr.add_hp('kl_ic_weight', (1e-6, 1e-3), init_sample_mode='logrand', explorable=True)
+svr.add_hp('kl_co_weight', [2])
+svr.add_hp('kl_ic_weight', [1])
 
 
 
@@ -101,7 +99,7 @@ svr.add_hp('l2_increase_epochs', [80])
 
 ''' Other fixed params (default: explorable=False)'''
 # Batch size
-svr.add_hp('batch_size', [200])
+svr.add_hp('batch_size', [32])
 svr.add_hp('valid_batch_size', [200])
 
 # Validation metric used for PBT
@@ -139,8 +137,8 @@ svr.add_hp('output_dist', ['poisson'])
 # ---- frequently not changed ----
 # change if you want to use PBT framework for random search
 svr.add_hp('learning_rate_decay_factor', [1])
-svr.add_hp('learning_rate_stop', [1e-10])
-svr.add_hp('learning_rate_n_to_compare', [0])
+svr.add_hp('learning_rate_stop', [1e-4])
+svr.add_hp('learning_rate_n_to_compare', [6])
 svr.add_hp('checkpoint_pb_load_name', ["checkpoint"])
 
 # optimizer params (only search if needed)
